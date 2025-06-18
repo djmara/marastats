@@ -97,6 +97,7 @@ function draw() {
     glitchImage();
     image(glitchedImg, width / 2, height / 2, drawWidth, drawHeight);
     drawDynamicStatLines();
+    drawOriginRings();  // Draw scanner rings
   }
 
   wasHovering = isHovering;
@@ -156,6 +157,22 @@ function drawDynamicStatLines() {
     noStroke();
     textAlign(CENTER, CENTER);
     text(typedStats[i], statPos.x, statPos.y);
+  }
+}
+
+function drawOriginRings() {
+  let t = frameCount * 0.05;
+
+  noFill();
+  stroke(255, 120);
+  strokeWeight(1.5);
+
+  let maxRadius = 80;
+  let ringCount = 3;
+
+  for (let i = 0; i < ringCount; i++) {
+    let r = (t + i * 20) % maxRadius;
+    ellipse(originX, originY, r * 2, r * 2);
   }
 }
 
