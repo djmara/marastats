@@ -7,7 +7,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  
+
   bgVideo.volume(0);
   bgVideo.loop();
   bgVideo.hide();
@@ -16,7 +16,7 @@ function setup() {
   bgVideo.elt.muted = true;
   bgVideo.elt.setAttribute('playsinline', '');
 
-  imageMode(CENTER);  // important for centering the video
+  imageMode(CENTER);
 }
 
 function draw() {
