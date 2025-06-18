@@ -161,13 +161,13 @@ function drawDynamicStatLines() {
 }
 
 function drawOriginRings() {
-  let t = frameCount * 0.1;
+  let t = frameCount * 1;
 
   noFill();
   stroke(255, 120);
-  strokeWeight(1);
+  strokeWeight(0.5);
 
-  let maxRadius = 30;
+  let maxRadius = 15;
   let ringCount = 5;
 
   for (let i = 0; i < ringCount; i++) {
