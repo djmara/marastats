@@ -189,7 +189,7 @@ function drawOriginRings() {
 function glitchImage() {
   glitchedImg = bgVideo.get();
 
-  let bands = 20;
+  let bands = 10;
 
   // Mouse speed
   let speed = dist(mouseX, mouseY, pmouseX, pmouseY);
