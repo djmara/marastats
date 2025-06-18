@@ -167,8 +167,8 @@ function drawOriginRings() {
   stroke(255, 120);
   strokeWeight(1.5);
 
-  let maxRadius = 80;
-  let ringCount = 3;
+  let maxRadius = 40;
+  let ringCount = 10;
 
   for (let i = 0; i < ringCount; i++) {
     let r = (t + i * 20) % maxRadius;
