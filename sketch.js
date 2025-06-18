@@ -148,7 +148,7 @@ function drawDynamicStatLines() {
 
     // Draw box
     rectMode(CENTER);
-    fill(0, 50);
+    fill(black, 50);
     stroke(255);
     rect(statPos.x, statPos.y, tw + padding, th + padding);
 
