@@ -177,7 +177,7 @@ function drawOriginRings() {
   stroke(255, 120);
   strokeWeight(0.5);
 
-  let maxRadius = 35;   // Change size of rings
+  let maxRadius = 50;   // Change size of rings
   let ringCount = 3;    // How many rings
 
   for (let i = 0; i < ringCount; i++) {
