@@ -158,7 +158,7 @@ function drawDynamicStatLines() {
 
     // Draw box
     rectMode(CENTER);
-    fill(black, 100);   // Example: light white fill
+    fill(0, 100);   // Example: light white fill
     stroke(255);
     rect(statPos.x, statPos.y, tw + padding, th + padding);
 
@@ -177,7 +177,7 @@ function drawOriginRings() {
   stroke(255, 120);
   strokeWeight(0.5);
 
-  let maxRadius = 30;   // Change size of rings
+  let maxRadius = 35;   // Change size of rings
   let ringCount = 3;    // How many rings
 
   for (let i = 0; i < ringCount; i++) {
