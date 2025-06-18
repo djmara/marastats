@@ -158,7 +158,7 @@ function drawDynamicStatLines() {
 
     // Draw box
     rectMode(CENTER);
-    fill(0, 100);   // Example: light white fill
+    fill(0, 50);   // Example: light white fill
     stroke(255);
     rect(statPos.x, statPos.y, tw + padding, th + padding);
 
