@@ -31,6 +31,8 @@ let glitchBaseStrength = 0.5;   // Base glitch strength (0 = no glitch, 1 = stro
 let glitchSpeedFactor = 1.0;    // How much mouse speed affects glitch
 let staggerDelayFrames = 10;    // Frames between staggered stat start
 
+let glitchFrameCounter = 0;     // NEW — controls glitch update rate
+
 function preload() {
   bgVideo = createVideo("liftcup_4.mp4");
 }
@@ -55,6 +57,8 @@ function setup() {
     typedStats[i] = "";
     statStartFrames[i] = frameCount + i * staggerDelayFrames;  // staggered start
   }
+
+  glitchedImg = bgVideo.get();   // initial glitch frame
 }
 
 function draw() {
@@ -94,10 +98,16 @@ function draw() {
   }
 
   if (isHovering) {
-    glitchImage();
+    glitchFrameCounter++;
+
+    // Only update glitch image every 5 frames:
+    if (glitchFrameCounter % 5 === 0) {
+      glitchImage();
+    }
+
     image(glitchedImg, width / 2, height / 2, drawWidth, drawHeight);
     drawDynamicStatLines();
-    drawOriginRings();  // Draw scanner rings
+    drawOriginRings();
   }
 
   wasHovering = isHovering;
@@ -148,7 +158,7 @@ function drawDynamicStatLines() {
 
     // Draw box
     rectMode(CENTER);
-    fill(black, 50);
+    fill(255, 50);   // Example: light white fill
     stroke(255);
     rect(statPos.x, statPos.y, tw + padding, th + padding);
 
@@ -165,10 +175,10 @@ function drawOriginRings() {
 
   noFill();
   stroke(255, 120);
-  strokeWeight(0.5);
+  strokeWeight(1.5);
 
-  let maxRadius = 15;
-  let ringCount = 5;
+  let maxRadius = 80;   // Change size of rings
+  let ringCount = 3;    // How many rings
 
   for (let i = 0; i < ringCount; i++) {
     let r = (t + i * 20) % maxRadius;
