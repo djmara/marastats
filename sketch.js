@@ -26,6 +26,11 @@ let originX, originY;
 let noiseTimeX = 0;
 let noiseTimeY = 1000;
 
+// === Tweaks ===
+let glitchBaseStrength = 0.5;   // Base glitch strength (0 = no glitch, 1 = strong glitch)
+let glitchSpeedFactor = 1.0;    // How much mouse speed affects glitch
+let staggerDelayFrames = 10;    // Frames between staggered stat start
+
 function preload() {
   bgVideo = createVideo("liftcup_4.mp4");
 }
@@ -48,7 +53,7 @@ function setup() {
 
   for (let i = 0; i < stats.length; i++) {
     typedStats[i] = "";
-    statStartFrames[i] = frameCount;
+    statStartFrames[i] = frameCount + i * staggerDelayFrames;  // staggered start
   }
 }
 
@@ -61,21 +66,19 @@ function draw() {
   noiseTimeX += 0.003;
   noiseTimeY += 0.003;
 
-// Calculate video aspect ratio for COVER
-let vidAspect = bgVideo.width / bgVideo.height;
-let windowAspect = width / height;
+  // Calculate video aspect ratio for COVER
+  let vidAspect = bgVideo.width / bgVideo.height;
+  let windowAspect = width / height;
 
-let drawWidth, drawHeight;
+  let drawWidth, drawHeight;
 
-if (windowAspect > vidAspect) {
-    // Fit width — cover
+  if (windowAspect > vidAspect) {
     drawWidth = width;
     drawHeight = width / vidAspect;
-} else {
-    // Fit height — cover
+  } else {
     drawHeight = height;
     drawWidth = height * vidAspect;
-}
+  }
 
   // Draw video background
   image(bgVideo, width / 2, height / 2, drawWidth, drawHeight);
@@ -86,7 +89,7 @@ if (windowAspect > vidAspect) {
   if (isHovering && (!wasHovering || mouseX !== lastMouseX || mouseY !== lastMouseY)) {
     for (let i = 0; i < stats.length; i++) {
       typedStats[i] = "";
-      statStartFrames[i] = frameCount;
+      statStartFrames[i] = frameCount + i * staggerDelayFrames;
     }
   }
 
@@ -160,12 +163,20 @@ function glitchImage() {
   glitchedImg = bgVideo.get();
 
   let bands = 20;
+
+  // Mouse speed
   let speed = dist(mouseX, mouseY, pmouseX, pmouseY);
+
+  // Glitch amount — based on base + mouse speed + slight noise
+  let timeNoise = noise(frameCount * 0.01);
+  let strength = glitchBaseStrength + glitchSpeedFactor * map(speed, 0, 50, 0, 1);
+  strength *= timeNoise;
 
   for (let i = 0; i < bands; i++) {
     let y = int(random(glitchedImg.height));
     let h = int(random(5, 15));
-    let offset = int(map(speed, 0, 50, -100, 100));
+
+    let offset = int(map(strength, 0, 1, -100, 100));
     offset += int(random(-20, 20));
 
     glitchedImg.copy(glitchedImg, 0, y, glitchedImg.width, h, offset, y, glitchedImg.width, h);
