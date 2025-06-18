@@ -161,7 +161,7 @@ function drawDynamicStatLines() {
 }
 
 function drawOriginRings() {
-  let t = frameCount * 0.25;
+  let t = frameCount * 0.05;
 
   noFill();
   stroke(255, 120);
