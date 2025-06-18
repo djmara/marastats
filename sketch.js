@@ -61,19 +61,21 @@ function draw() {
   noiseTimeX += 0.003;
   noiseTimeY += 0.003;
 
-  // Calculate video aspect ratio scaling
-  let vidAspect = bgVideo.width / bgVideo.height;
-  let windowAspect = width / height;
+// Calculate video aspect ratio for COVER
+let vidAspect = bgVideo.width / bgVideo.height;
+let windowAspect = width / height;
 
-  let drawWidth, drawHeight;
+let drawWidth, drawHeight;
 
-  if (windowAspect > vidAspect) {
-    drawHeight = height;
-    drawWidth = height * vidAspect;
-  } else {
+if (windowAspect > vidAspect) {
+    // Fit width — cover
     drawWidth = width;
     drawHeight = width / vidAspect;
-  }
+} else {
+    // Fit height — cover
+    drawHeight = height;
+    drawWidth = height * vidAspect;
+}
 
   // Draw video background
   image(bgVideo, width / 2, height / 2, drawWidth, drawHeight);
